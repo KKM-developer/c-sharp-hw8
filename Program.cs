@@ -197,3 +197,92 @@ PrintIndex(mas5);
 11 16 15 06
 10 09 08 07
 */
+int[,] FillSpiralArray(int m, int n)
+{
+    int[,] array = new int[m,n];
+    int count = 1;
+    int positionY = 0;
+    int positionX = 0;
+    int amendmentX = array.GetLength(1);
+    int amendmentY = array.GetLength(0);
+    bool turnRight = true;
+    bool turnDown = false;
+    bool turnLeft = false;
+    bool turnUp = false;    
+    while (count <=(m*n))
+    {
+        if (turnRight)
+        if(positionX<amendmentX)
+        {
+            array[positionY,positionX] = count;
+            positionX++;
+            count++;
+            if(positionX==amendmentX-1) 
+            {
+                turnDown = true;
+                turnRight = false;
+                positionY++;
+                amendmentX--;
+                
+            }
+        }
+        if (turnDown)
+        {
+                if(positionY < amendmentY)
+            {
+                array[positionY,positionX] = count;
+                positionY++;
+                count++;
+                if(positionY==amendmentY-1) 
+                {
+                    amendmentY--;
+                    positionX--;
+                    turnDown = false;
+                    turnLeft = true;
+                    
+                }
+            }
+        }
+        if (turnLeft)
+        {
+            if (positionX >(array.GetLength(1))-amendmentX)
+            {
+                array[positionY,positionX] = count;
+                positionX--;
+                count++;
+                if (positionX == (array.GetLength(1))-amendmentX)
+                {
+                    amendmentX--;
+                    turnUp = true;
+                    turnLeft = false;
+                    positionY--;
+                    
+                }
+            }
+        }
+        if (turnUp)
+        {
+            if (positionY>=(array.GetLength(0))-amendmentY)
+            {
+                array[positionY,positionX] = count;
+                positionY--;
+                count++;
+                if (positionY == (array.GetLength(0))-amendmentY)
+                {
+                    amendmentY--;
+                    turnUp = false;
+                    turnRight = true;
+                    positionX++;
+                }
+            }
+        }
+    }
+    return array;
+}
+Console.WriteLine("Задача 5");
+Console.Write("Введите количество строк двумерного массива ");
+m = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите количество стобцов двумерного массива ");
+n = Convert.ToInt32(Console.ReadLine());
+int[,] mas6 = FillSpiralArray(m, n);
+PrintArray(mas6);
