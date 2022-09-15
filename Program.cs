@@ -9,6 +9,57 @@
 9 5 3 2
 8 4 4 2
 */
+void PrintArray(int[,] table)
+{
+    for (int i = 0; i < table.GetLength(0); i++)
+    {
+        for (int j = 0; j < table.GetLength(1); j++)
+        {
+            Console.Write(table[i, j] + "\t");
+        }
+        Console.WriteLine();
+    }
+}
+int[,] FillArray(int m, int n)
+{
+    int[,] array = new int[m, n];
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+            array[i, j] = new Random().Next(1, 100);
+    }
+    return array;
+}
+int [,] DescendingRowArray (int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            int rowMax = array[i,j];
+            for (int h = j; h < array.GetLength(1); h++)
+            {
+                if (rowMax < array[i,h])
+                {
+                    int temp = array[i,h];
+                    array[i,j] = temp;
+                    array[i,h] = rowMax;
+                    rowMax = array[i,j];
+                }
+            }
+        }
+    }
+    return array;
+}
+Console.WriteLine("Задача 1");
+Console.Write("Введите количество строк двумерного массива ");
+int m = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите количество стобцов двумерного массива ");
+int n = Convert.ToInt32(Console.ReadLine());
+int[,] mas = FillArray(m, n);
+PrintArray(mas);
+Console.WriteLine();
+PrintArray(DescendingRowArray(mas));
 /*
 Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
 Например, задан массив:
