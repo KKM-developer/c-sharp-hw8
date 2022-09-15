@@ -109,6 +109,41 @@ Console.WriteLine(FingMinSumRow(mas2));
 18 20
 15 18
 */
+
+int [,] MultiplicationMatr (int[,] array1, int[,] array2)
+{
+        int [,] multiArr = new int[array1.GetLength(0), array2.GetLength(1)];
+        if (array1.GetLength(0)==array2.GetLength(1))
+        {
+            for (int i = 0; i < multiArr.GetLength(0); i++)
+            {
+                for (int j = 0; j < multiArr.GetLength(1); j++)
+                {
+                    for (int h = 0; h < array2.GetLength(0); h++)
+                    {
+                        multiArr[i,j] += array1[i,h]*array2[h,j];                   
+                    }
+                }
+            }
+        }
+        return multiArr;
+}
+Console.WriteLine("Задача 3");
+Console.Write("Введите количество строк двумерного массива ");
+m = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите количество стобцов двумерного массива ");
+n = Convert.ToInt32(Console.ReadLine());
+int[,] mas3 = FillArray(m, n);
+Console.Write("Введите количество строк двумерного массива ");
+m = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите количество стобцов двумерного массива ");
+n = Convert.ToInt32(Console.ReadLine());
+int[,] mas4 = FillArray(m, n);
+PrintArray(mas3);
+Console.WriteLine();
+PrintArray(mas4);
+Console.WriteLine();
+PrintArray(MultiplicationMatr(mas3, mas4));
 /*
 Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
 Массив размером 2 x 2 x 2
