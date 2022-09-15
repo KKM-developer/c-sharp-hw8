@@ -72,6 +72,10 @@ PrintArray(DescendingRowArray(mas));
 string FingMinSumRow (int[,] array)
 {
     int minRow = 0;
+    foreach (int item in array)
+    {
+        minRow+=item;
+    }
     int indexMinRow = 1;
     for (int i = 0; i < array.GetLength(0); i++)
     {
