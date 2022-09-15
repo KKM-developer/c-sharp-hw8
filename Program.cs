@@ -152,6 +152,43 @@ PrintArray(MultiplicationMatr(mas3, mas4));
 27(0,0,1) 90(0,1,1)
 26(1,0,1) 55(1,1,1)
 */
+int [,,] FillThirdArray(int m, int n, int s)
+{
+    int[,,] array = new int[m, n, s];
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            for (int h = 0; h < s; h++)
+            {
+                array[i, j, h] = new Random().Next(1, 100);
+            }
+        }
+    }
+    return array;    
+}
+void PrintIndex(int[,,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int h = 0; h < array.GetLength(2); h++)
+            {
+                Console.WriteLine($"{array[i,j,h]} имеет координаты ({i},{j},{h})");
+            }
+        }
+    }
+}
+Console.WriteLine("Задача 4");
+Console.Write("Введите длину трехмерного массива ");
+m = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите высоту трехмерного массива ");
+n = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите ширину трехмерного массива ");
+int s = Convert.ToInt32(Console.ReadLine());
+int[,,] mas5 = FillThirdArray(m, n, s);
+PrintIndex(mas5);
 /*
 Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
 Например, на выходе получается вот такой массив:
