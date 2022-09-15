@@ -69,6 +69,33 @@ PrintArray(DescendingRowArray(mas));
 5 2 6 7
 Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 */
+string FingMinSumRow (int[,] array)
+{
+    int minRow = 0;
+    int indexMinRow = 1;
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        int temp = 0;
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            temp += array[i,j];
+        }
+        if (temp < minRow)
+        {
+            minRow = temp;
+            indexMinRow +=i;
+        }
+    }
+    return $"Строка с минимальной суммой элементов - {indexMinRow}\nСумма элементов = {minRow}";
+}
+Console.WriteLine("Задача 2");
+Console.Write("Введите количество строк двумерного массива ");
+m = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите количество стобцов двумерного массива ");
+n = Convert.ToInt32(Console.ReadLine());
+int[,] mas2 = FillArray(m, n);
+PrintArray(mas2);
+Console.WriteLine(FingMinSumRow(mas2));
 /*
 Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
 Например, даны 2 матрицы:
