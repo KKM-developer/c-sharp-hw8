@@ -30,21 +30,21 @@ int[,] FillArray(int m, int n)
     }
     return array;
 }
-int [,] DescendingRowArray (int[,] array)
+int[,] DescendingRowArray(int[,] array)
 {
     for (int i = 0; i < array.GetLength(0); i++)
     {
         for (int j = 0; j < array.GetLength(1); j++)
         {
-            int rowMax = array[i,j];
+            int rowMax = array[i, j];
             for (int h = j; h < array.GetLength(1); h++)
             {
-                if (rowMax < array[i,h])
+                if (rowMax < array[i, h])
                 {
-                    int temp = array[i,h];
-                    array[i,j] = temp;
-                    array[i,h] = rowMax;
-                    rowMax = array[i,j];
+                    int temp = array[i, h];
+                    array[i, j] = temp;
+                    array[i, h] = rowMax;
+                    rowMax = array[i, j];
                 }
             }
         }
@@ -69,12 +69,12 @@ PrintArray(DescendingRowArray(mas));
 5 2 6 7
 Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 */
-string FingMinSumRow (int[,] array)
+string FingMinSumRow(int[,] array)
 {
     int minRow = 0;
     foreach (int item in array)
     {
-        minRow+=item;
+        minRow += item;
     }
     int indexMinRow = 1;
     for (int i = 0; i < array.GetLength(0); i++)
@@ -82,12 +82,12 @@ string FingMinSumRow (int[,] array)
         int temp = 0;
         for (int j = 0; j < array.GetLength(1); j++)
         {
-            temp += array[i,j];
+            temp += array[i, j];
         }
         if (temp < minRow)
         {
             minRow = temp;
-            indexMinRow +=i;
+            indexMinRow += i;
         }
     }
     return $"Строка с минимальной суммой элементов - {indexMinRow}\nСумма элементов = {minRow}";
@@ -110,23 +110,23 @@ Console.WriteLine(FingMinSumRow(mas2));
 15 18
 */
 
-int [,] MultiplicationMatr (int[,] array1, int[,] array2)
+int[,] MultiplicationMatr(int[,] array1, int[,] array2)
 {
-        int [,] multiArr = new int[array1.GetLength(0), array2.GetLength(1)];
-        if (array1.GetLength(0)==array2.GetLength(1))
+    int[,] multiArr = new int[array1.GetLength(0), array2.GetLength(1)];
+    if (array1.GetLength(0) == array2.GetLength(1))
+    {
+        for (int i = 0; i < multiArr.GetLength(0); i++)
         {
-            for (int i = 0; i < multiArr.GetLength(0); i++)
+            for (int j = 0; j < multiArr.GetLength(1); j++)
             {
-                for (int j = 0; j < multiArr.GetLength(1); j++)
+                for (int h = 0; h < array2.GetLength(0); h++)
                 {
-                    for (int h = 0; h < array2.GetLength(0); h++)
-                    {
-                        multiArr[i,j] += array1[i,h]*array2[h,j];                   
-                    }
+                    multiArr[i, j] += array1[i, h] * array2[h, j];
                 }
             }
         }
-        return multiArr;
+    }
+    return multiArr;
 }
 Console.WriteLine("Задача 3");
 Console.Write("Введите количество строк двумерного массива ");
@@ -152,7 +152,7 @@ PrintArray(MultiplicationMatr(mas3, mas4));
 27(0,0,1) 90(0,1,1)
 26(1,0,1) 55(1,1,1)
 */
-int [,,] FillThirdArray(int m, int n, int s)
+int[,,] FillThirdArray(int m, int n, int s)
 {
     int[,,] array = new int[m, n, s];
     for (int i = 0; i < m; i++)
@@ -165,7 +165,7 @@ int [,,] FillThirdArray(int m, int n, int s)
             }
         }
     }
-    return array;    
+    return array;
 }
 void PrintIndex(int[,,] array)
 {
@@ -175,7 +175,7 @@ void PrintIndex(int[,,] array)
         {
             for (int h = 0; h < array.GetLength(2); h++)
             {
-                Console.WriteLine($"{array[i,j,h]} имеет координаты ({i},{j},{h})");
+                Console.WriteLine($"{array[i, j, h]} имеет координаты ({i},{j},{h})");
             }
         }
     }
@@ -199,83 +199,81 @@ PrintIndex(mas5);
 */
 int[,] FillSpiralArray(int m, int n)
 {
-    int[,] array = new int[m,n];
+    int[,] array = new int[m, n];
     int count = 1;
     int positionY = 0;
     int positionX = 0;
-    int amendmentX = array.GetLength(1);
-    int amendmentY = array.GetLength(0);
+    int lenghtToRight = n-1;
+    int lenghtToDown = m - 1;
+    int lenghtToLeft = 0;
+    int lenghtToUp = 1;
     bool turnRight = true;
     bool turnDown = false;
     bool turnLeft = false;
-    bool turnUp = false;    
-    while (count <=(m*n))
+    bool turnUp = false;
+    while (count <= (m * n))
     {
         if (turnRight)
-        if(positionX<amendmentX)
         {
-            array[positionY,positionX] = count;
-            positionX++;
-            count++;
-            if(positionX==amendmentX-1) 
+            array[positionY, positionX] = count;
+            if (positionX == lenghtToRight)
             {
                 turnDown = true;
                 turnRight = false;
                 positionY++;
-                amendmentX--;
-                
+                lenghtToRight--;
+                count++;
+                goto endLoop;
+
             }
+            positionX++;
         }
         if (turnDown)
         {
-                if(positionY < amendmentY)
+            array[positionY, positionX] = count;
+            if (positionY == lenghtToDown)
             {
-                array[positionY,positionX] = count;
-                positionY++;
+                lenghtToDown--;
+                positionX--;
+                turnDown = false;
+                turnLeft = true;
                 count++;
-                if(positionY==amendmentY-1) 
-                {
-                    amendmentY--;
-                    positionX--;
-                    turnDown = false;
-                    turnLeft = true;
-                    
-                }
+                goto endLoop;
+
             }
+            positionY++;
         }
         if (turnLeft)
         {
-            if (positionX >(array.GetLength(1))-amendmentX)
+            array[positionY, positionX] = count;
+            if (positionX == lenghtToLeft)
             {
-                array[positionY,positionX] = count;
-                positionX--;
+                lenghtToLeft++;
+                turnUp = true;
+                turnLeft = false;
+                positionY--;
                 count++;
-                if (positionX == (array.GetLength(1))-amendmentX)
-                {
-                    amendmentX--;
-                    turnUp = true;
-                    turnLeft = false;
-                    positionY--;
-                    
-                }
+                goto endLoop;
+
             }
+            positionX--;
         }
         if (turnUp)
         {
-            if (positionY>=(array.GetLength(0))-amendmentY)
+            array[positionY, positionX] = count;
+            if (positionY ==lenghtToUp)
             {
-                array[positionY,positionX] = count;
-                positionY--;
+                lenghtToUp++;
+                turnUp = false;
+                turnRight = true;
+                positionX++;
                 count++;
-                if (positionY == (array.GetLength(0))-amendmentY)
-                {
-                    amendmentY--;
-                    turnUp = false;
-                    turnRight = true;
-                    positionX++;
-                }
+                goto endLoop;
             }
+            positionY--;
         }
+        count++;
+        endLoop: continue;
     }
     return array;
 }
